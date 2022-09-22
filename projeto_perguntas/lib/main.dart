@@ -7,13 +7,21 @@ main() {
   runApp(PerguntaApp());
 }
 
-class PerguntaApp extends StatelessWidget {
+class PerguntaApp extends StatefulWidget {
+  @override
+  State<PerguntaApp> createState() => _PerguntaAppState();
+}
 
-  void responder(){//metodo responder
-    print('pergunta respondida');
+class _PerguntaAppState extends State<PerguntaApp> {
+  var _perguntaSelecionada = 0;
+
+  void _responder() {
+    //metodo responder
+    setState(() {
+      _perguntaSelecionada++; // a cada vez que responder vai
+    });
+    print(_perguntaSelecionada);
   }
-  
-
 
   @override
   Widget build(BuildContext context) {
@@ -33,23 +41,21 @@ class PerguntaApp extends StatelessWidget {
         ),
         body: Column(
           children: [
-            Text(perguntas.elementAt(0)),
+            Text(perguntas[_perguntaSelecionada]),
             ElevatedButton(
               child: Text(
                   'Resposta 1'), //componente filho, recebe um unico (outro)widget,
-              onPressed: responder,
+              onPressed: _responder,
             ),
             ElevatedButton(
               child: Text(
                   'Resposta 2'), //componente filho, recebe um unico e outro widget,
-              onPressed: (){
-                print('resposta 2 foi selecionada!');
-              },
+              onPressed: _responder,
             ),
             ElevatedButton(
               child: Text(
                   'Resposta 3'), //componente filho, recebe um unico e outro widget,
-              onPressed: ()=> print('resposta 3'),
+              onPressed: _responder,
             ),
           ],
         ),
